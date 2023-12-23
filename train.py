@@ -1,13 +1,15 @@
 import os
 
-import prepare_dataframe
 import hydra
-from sklearn.metrics import median_absolute_error, mean_absolute_percentage_error
 import mlflow
 import pandas as pd
 from catboost import CatBoostRegressor
 from mlflow.models import infer_signature
 from omegaconf import DictConfig
+from sklearn.metrics import (mean_absolute_percentage_error,
+                             median_absolute_error)
+
+import prepare_dataframe
 
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
@@ -16,17 +18,17 @@ def main(cfg: DictConfig):
     Training model and logging metrics
     """
 
-
     data = pd.read_parquet(cfg["paths"]["data"])
 
     # generate features and target
-    df = prepare_dataframe.prepare_dataframe(data, cfg["prepare_dataframe"]["features"],
-                                             cfg["prepare_dataframe"]["target"])
+    df = prepare_dataframe.prepare_dataframe(
+        data, cfg["prepare_dataframe"]["features"], cfg["prepare_dataframe"]["target"]
+    )
 
-    features_list = [col for col in df.columns if 'target' not in col]
+    features_list = [col for col in df.columns if "target" not in col]
 
     train_data = df[features_list]
-    train_target = df['target']
+    train_target = df["target"]
 
     model = CatBoostRegressor(**cfg["catboost_params"])
 
@@ -48,7 +50,9 @@ def main(cfg: DictConfig):
 
             # calculate metrics
             median_ae = median_absolute_error(train_target, model.predict(train_data))
-            mape = mean_absolute_percentage_error(train_target, model.predict(train_data))
+            mape = mean_absolute_percentage_error(
+                train_target, model.predict(train_data)
+            )
 
             # Log metrics
             mlflow.log_metric("median_ae", median_ae)

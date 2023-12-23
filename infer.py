@@ -1,10 +1,12 @@
-import os
 import datetime
-import prepare_dataframe
+import os
+
 import hydra
 import pandas as pd
 from catboost import CatBoostRegressor
 from omegaconf import DictConfig
+
+import prepare_dataframe
 
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
@@ -15,10 +17,11 @@ def main(cfg: DictConfig):
     data = pd.read_parquet(cfg["paths"]["data"])
 
     # generate features
-    df = prepare_dataframe.prepare_dataframe(data, cfg["prepare_dataframe"]["features"],
-                                             cfg["prepare_dataframe"]["target"])
+    df = prepare_dataframe.prepare_dataframe(
+        data, cfg["prepare_dataframe"]["features"], cfg["prepare_dataframe"]["target"]
+    )
 
-    features_list = [col for col in df.columns if 'target' not in col]
+    features_list = [col for col in df.columns if "target" not in col]
     next_period_data = df[features_list]
 
     model = CatBoostRegressor()
