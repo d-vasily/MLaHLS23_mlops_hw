@@ -27,7 +27,7 @@ def main(cfg: DictConfig):
     model = CatBoostRegressor()
     model.load_model(os.path.join(cfg["paths"]["models"], "catboost.cbm"))
 
-    next_period_prediction = model.predict(next_period_data)
+    next_period_prediction = pd.Series(model.predict(next_period_data))
 
     today = datetime.datetime.now().date()
 

@@ -8,3 +8,5 @@
 /outputs
 /mlartifacts
 /mlruns
+/data
+/models
