@@ -1,5 +1,4 @@
-import os
-
+import dvc.api
 import hydra
 import mlflow
 import pandas as pd
@@ -8,7 +7,7 @@ from mlflow.models import infer_signature
 from omegaconf import DictConfig
 from sklearn.metrics import mean_absolute_percentage_error
 from sklearn.metrics import median_absolute_error
-import dvc.api
+
 import prepare_dataframe
 
 
