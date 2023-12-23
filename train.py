@@ -1,3 +1,5 @@
+import os
+
 import dvc.api
 import hydra
 import mlflow
@@ -16,6 +18,10 @@ def main(cfg: DictConfig):
     """
     Training model and logging metrics
     """
+    print(1)
+    for path in ["./data", "./models", "./data/predictions"]:
+        if not os.path.exists(path):
+            os.makedirs(path)
     dvc.api.DVCFileSystem().get(cfg["paths"]["data"], cfg["paths"]["data"])
     data = pd.read_parquet(cfg["paths"]["data"])
     # generate features and target

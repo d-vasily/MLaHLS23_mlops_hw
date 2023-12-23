@@ -15,6 +15,9 @@ def main(cfg: DictConfig):
     """
     Функция реализует прогнозирование предобученной моделью.
     """
+    for path in ["./data", "./models", "./data/predictions"]:
+        if not os.path.exists(path):
+            os.makedirs(path)
     dvc.api.DVCFileSystem().get(cfg["paths"]["data"], cfg["paths"]["data"])
     data = pd.read_parquet(cfg["paths"]["data"])
 
