@@ -18,7 +18,6 @@ def main(cfg: DictConfig):
     """
     Training model and logging metrics
     """
-    print(1)
     for path in ["./data", "./models", "./data/predictions"]:
         if not os.path.exists(path):
             os.makedirs(path)
