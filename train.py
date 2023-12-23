@@ -6,8 +6,8 @@ import pandas as pd
 from catboost import CatBoostRegressor
 from mlflow.models import infer_signature
 from omegaconf import DictConfig
-from sklearn.metrics import (mean_absolute_percentage_error,
-                             median_absolute_error)
+from sklearn.metrics import mean_absolute_percentage_error
+from sklearn.metrics import median_absolute_error
 
 import prepare_dataframe
 
