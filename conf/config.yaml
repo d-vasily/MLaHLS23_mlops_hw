@@ -1,6 +1,6 @@
 paths:
       data: 'data/dataframe.parquet'
-      models: 'models'
+      models: 'models/catboost.cbm'
       predictions: 'data/predictions'
 
 prepare_dataframe:

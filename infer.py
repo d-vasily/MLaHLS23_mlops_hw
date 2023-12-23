@@ -5,6 +5,7 @@ import hydra
 import pandas as pd
 from catboost import CatBoostRegressor
 from omegaconf import DictConfig
+import dvc.api
 
 import prepare_dataframe
 
@@ -14,6 +15,7 @@ def main(cfg: DictConfig):
     """
     Функция реализует прогнозирование предобученной моделью.
     """
+    dvc.api.DVCFileSystem().get(cfg["paths"]["data"], cfg["paths"]["data"])
     data = pd.read_parquet(cfg["paths"]["data"])
 
     # generate features
@@ -24,8 +26,9 @@ def main(cfg: DictConfig):
     features_list = [col for col in df.columns if "target" not in col]
     next_period_data = df[features_list]
 
+    dvc.api.DVCFileSystem().get(cfg["paths"]["models"], cfg["paths"]["models"])
     model = CatBoostRegressor()
-    model.load_model(os.path.join(cfg["paths"]["models"], "catboost.cbm"))
+    model.load_model(cfg["paths"]["models"])
 
     next_period_prediction = pd.Series(model.predict(next_period_data))
 

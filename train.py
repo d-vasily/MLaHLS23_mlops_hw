@@ -17,9 +17,8 @@ def main(cfg: DictConfig):
     """
     Training model and logging metrics
     """
-
+    dvc.api.DVCFileSystem().get(cfg["paths"]["data"], cfg["paths"]["data"])
     data = pd.read_parquet(cfg["paths"]["data"])
-
     # generate features and target
     df = prepare_dataframe.prepare_dataframe(
         data, cfg["prepare_dataframe"]["features"], cfg["prepare_dataframe"]["target"]
