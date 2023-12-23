@@ -6,7 +6,7 @@ authors = ["d-vasily <dvs15m315@yandex.ru>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.11"p
 catboost = "^1.2.2"
 pandas = "^2.1.4"
 black = "^23.12.1"
