@@ -1,5 +1,5 @@
 paths:
-      data: 'data/dataframe__tmp.parquet'
+      data: 'data/dataframe.parquet'
       models: 'models'
       predictions: 'data/predictions'
 
