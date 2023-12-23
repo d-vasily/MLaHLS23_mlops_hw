@@ -33,7 +33,7 @@ def main(cfg: DictConfig):
 
     model.fit(train_data, train_target)
 
-    model.save_model(os.path.join(cfg["paths"]["models"], "catboost.cbm"), format="cbm")
+    model.save_model(cfg["paths"]["models"], format="cbm")
 
     if cfg["mlflow"]["logging"]:
         # set tracking server uri for logging
